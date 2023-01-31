@@ -3,14 +3,22 @@ import { RouterView } from "vue-router"
 </script>
 
 <template>
-  <div class="page-container">
-    <RouterView />
+  <div class="page-wrapper">
+    <div class="page-container">
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-.page-container {
+.page-wrapper {
   min-height: 100vh;
-  min-width: 100vw;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+
+  .page-container {
+    width: 1440px;
+  }
 }
 </style>
