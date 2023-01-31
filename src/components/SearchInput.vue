@@ -15,7 +15,7 @@ const searchValue = ref<string>("")
 let timeout: ReturnType<typeof setTimeout>
 
 onMounted(() => {
-  const searchQuery = String(route.query.search)
+  const searchQuery = route.query.search ? String(route.query.search) : route.query.search
   if (!searchQuery) return
   searchValue.value = searchQuery
   getPlaces(searchValue.value)
