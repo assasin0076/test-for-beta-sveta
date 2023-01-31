@@ -1,5 +1,5 @@
 <template>
-  <input class="search-input" @input="inputHandle" v-model="searchValue" placeholder="Input a place" />
+  <input ref="searchInput" class="search-input" @input="inputHandle" v-model="searchValue" placeholder="Input a place" />
 </template>
 
 <script setup lang="ts">
@@ -11,10 +11,12 @@ const { getPlaces } = usePlacesStore()
 const router = useRouter()
 const route = useRoute()
 
+const searchInput = ref<HTMLInputElement | null>(null)
 const searchValue = ref<string>("")
 let timeout: ReturnType<typeof setTimeout>
 
 onMounted(() => {
+  if (searchInput.value) searchInput.value.focus()
   const searchQuery = route.query.search ? String(route.query.search) : route.query.search
   if (!searchQuery) return
   searchValue.value = searchQuery
