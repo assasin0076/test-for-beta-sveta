@@ -1,16 +1,19 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
+    "target": "es2020",
+    "module": "ESNext",
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "jsx": "preserve",
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "baseUrl": ".",
+    "types": ["axios", "node", "vite/client"],
+    "typeRoots": ["."],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     }
-  },
-
-  "references": [
-    {
-      "path": "./tsconfig.config.json"
-    }
-  ]
+  }
 }
