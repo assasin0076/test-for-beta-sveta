@@ -5,7 +5,7 @@
   "description": "Тестовое задание. Разработка поисковой системы на vue+ssr",
   "scripts": {
     "dev": "node server",
-    "build": "npm run build:server && npm run build:client && cross-env NODE_ENV=production",
+    "build": "npm run build:server && npm run build:client && cross-env NODE_ENV=production node server",
     "buildSave": "npm run build:server && npm run build:client",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.js --outDir dist/server",
