@@ -1,16 +1,30 @@
 <template>
   <div class="home-page">
+    <item-modal v-if="isModalVisible" v-model="isModalVisible" :place="selectedPlace" />
     <search-input />
     <div class="home-content-container">
-      <div v-for="place in placesStore.places" :key="place.place_id" class="home-content-item">{{ place.display_name }}</div>
+      <ItemsListItem v-for="place in placesStore.places" @click="selectPlace(place.place_id)" :key="place.place_id" :place="place" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import SearchInput from "../components/SearchInput.vue"
+import SearchInput from "@/components/SearchInput.vue"
 import { usePlacesStore } from "@/stores/placesStore"
+import ItemsListItem from "@/components/ItemsListItem.vue"
+import ItemModal from "@/components/ItemModal.vue"
+import { ref } from "vue"
+import type { TPlace } from "@/types/TPlace"
+
 const placesStore = usePlacesStore()
+const isModalVisible = ref(false)
+const selectedPlace = ref<TPlace | null>(null)
+const selectPlace = (place_id: number) => {
+  console.log(isModalVisible.value)
+  selectedPlace.value = placesStore.places.filter((place) => place.place_id === place_id)[0]
+  isModalVisible.value = true
+  console.log(isModalVisible.value)
+}
 </script>
 
 <style lang="scss">
@@ -22,16 +36,6 @@ const placesStore = usePlacesStore()
 
   .home-content-container {
     width: 100%;
-    .home-content-item {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid black;
-      border-radius: 4px;
-
-      &:not(:last-child) {
-        margin-bottom: 12px;
-      }
-    }
   }
 }
 </style>
