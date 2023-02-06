@@ -1,18 +1,17 @@
-import path from "node:path"
-import { defineConfig } from "vite"
-import vuePlugin from "@vitejs/plugin-vue"
+/* eslint-disable */
+import path from "node:path";
+import { defineConfig } from "vite";
+import vuePlugin from "@vitejs/plugin-vue";
 
-const virtualFile = "@virtual-file"
-const virtualId = "\0" + virtualFile
-const nestedVirtualFile = "@nested-virtual-file"
-const nestedVirtualId = "\0" + nestedVirtualFile
+const virtualFile = "@virtual-file";
+const virtualId = "\0" + virtualFile;
+const nestedVirtualFile = "@nested-virtual-file";
+const nestedVirtualId = "\0" + nestedVirtualFile;
 
-const base = "/test/"
+const base = "/test/";
 
-// preserve this to test loading __filename & __dirname in ESM as Vite polyfills them.
-// if Vite incorrectly load this file, node.js would error out.
-globalThis.__vite_test_filename = __filename
-globalThis.__vite_test_dirname = __dirname
+globalThis.__vite_test_filename = __filename;
+globalThis.__vite_test_dirname = __dirname;
 
 export default defineConfig(({ command, ssrBuild }) => ({
   base,
@@ -22,14 +21,18 @@ export default defineConfig(({ command, ssrBuild }) => ({
       name: "virtual",
       resolveId(id) {
         if (id === "@foo") {
-          return id
+          return id;
         }
       },
       load(id, options) {
-        const ssrFromOptions = options?.ssr ?? false
+        const ssrFromOptions = options?.ssr ?? false;
         if (id === "@foo") {
           // Force a mismatch error if ssrBuild is different from ssrFromOptions
-          return `export default { msg: '${command === "build" && !!ssrBuild !== ssrFromOptions ? `defineConfig ssrBuild !== ssr from load options` : "hi"}' }`
+          return `export default { msg: '${
+            command === "build" && !!ssrBuild !== ssrFromOptions
+              ? `defineConfig ssrBuild !== ssr from load options`
+              : "hi"
+          }' }`;
         }
       },
     },
@@ -37,37 +40,37 @@ export default defineConfig(({ command, ssrBuild }) => ({
       name: "virtual-module",
       resolveId(id) {
         if (id === virtualFile) {
-          return virtualId
+          return virtualId;
         } else if (id === nestedVirtualFile) {
-          return nestedVirtualId
+          return nestedVirtualId;
         }
       },
       load(id) {
         if (id === virtualId) {
-          return `export { msg } from "@nested-virtual-file";`
+          return `export { msg } from "@nested-virtual-file";`;
         } else if (id === nestedVirtualId) {
-          return `export const msg = "[success] from conventional virtual file"`
+          return `export const msg = "[success] from conventional virtual file"`;
         }
       },
     },
     // Example of a plugin that injects a helper from a virtual module that can
     // be used in renderBuiltUrl
     (function () {
-      const queryRE = /\?.*$/s
-      const hashRE = /#.*$/s
-      const cleanUrl = (url) => url.replace(hashRE, "").replace(queryRE, "")
-      let config
+      const queryRE = /\?.*$/s;
+      const hashRE = /#.*$/s;
+      const cleanUrl = (url) => url.replace(hashRE, "").replace(queryRE, "");
+      let config;
 
-      const virtualId = "\0virtual:ssr-vue-built-url"
+      const virtualId = "\0virtual:ssr-vue-built-url";
       return {
         name: "built-url",
         enforce: "post",
         configResolved(_config) {
-          config = _config
+          config = _config;
         },
         resolveId(id) {
           if (id === virtualId) {
-            return id
+            return id;
           }
         },
         load(id) {
@@ -75,19 +78,25 @@ export default defineConfig(({ command, ssrBuild }) => ({
             return {
               code: `export const __ssr_vue_processAssetPath = (url) => '${base}' + url`,
               moduleSideEffects: "no-treeshake",
-            }
+            };
           }
         },
         transform(code, id) {
-          const cleanId = cleanUrl(id)
-          if (config.build.ssr && (cleanId.endsWith(".js") || cleanId.endsWith(".vue")) && !code.includes("__ssr_vue_processAssetPath")) {
+          const cleanId = cleanUrl(id);
+          if (
+            config.build.ssr &&
+            (cleanId.endsWith(".js") || cleanId.endsWith(".vue")) &&
+            !code.includes("__ssr_vue_processAssetPath")
+          ) {
             return {
-              code: `import { __ssr_vue_processAssetPath } from '${virtualId}';__ssr_vue_processAssetPath;` + code,
+              code:
+                `import { __ssr_vue_processAssetPath } from '${virtualId}';__ssr_vue_processAssetPath;` +
+                code,
               sourcemap: null, // no sourcemap support to speed up CI
-            }
+            };
           }
         },
-      }
+      };
     })(),
   ],
   experimental: {
@@ -95,7 +104,7 @@ export default defineConfig(({ command, ssrBuild }) => ({
       if (ssr && type === "asset" && hostType === "js") {
         return {
           runtime: `__ssr_vue_processAssetPath(${JSON.stringify(filename)})`,
-        }
+        };
       }
     },
   },
@@ -116,4 +125,4 @@ export default defineConfig(({ command, ssrBuild }) => ({
       "@": path.resolve(__dirname, "src"),
     },
   },
-}))
+}));

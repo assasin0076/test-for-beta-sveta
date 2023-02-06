@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import type { TPlace } from "@/types/TPlace"
-import type { PropType } from "vue"
+import type { TPlace } from "@/types/TPlace";
+import type { PropType } from "vue";
 
-defineProps({ place: { type: Object as PropType<TPlace>, required: true } })
+defineProps({ place: { type: Object as PropType<TPlace>, required: true } });
 </script>
 
 <style lang="scss">

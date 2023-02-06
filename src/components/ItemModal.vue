@@ -1,21 +1,23 @@
 <template>
   <teleport to="body">
-    <div @click.self="close" class="item-modal-wrapper"><div class="item-modal-container"></div></div>
+    <div @click.self="close" class="item-modal-wrapper">
+      <div class="item-modal-container"></div>
+    </div>
   </teleport>
 </template>
 
 <script setup lang="ts">
-import type { TPlace } from "@/types/TPlace"
+import type { TPlace } from "@/types/TPlace";
 type TProps = {
-  place: TPlace | null
-  modelValue: boolean
-}
-defineProps<TProps>()
-const emit = defineEmits(["update:modelValue"])
+  place: TPlace | null;
+  modelValue: boolean;
+};
+defineProps<TProps>();
+const emit = defineEmits(["update:modelValue"]);
 
 const close = () => {
-  emit("update:modelValue", false)
-}
+  emit("update:modelValue", false);
+};
 </script>
 
 <style lang="scss">
