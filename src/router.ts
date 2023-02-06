@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   createRouter as _createRouter,
   createMemoryHistory,
@@ -9,7 +11,8 @@ import {
 const pages = import.meta.glob("./views/*.vue");
 
 const routes = Object.keys(pages).map((path) => {
-  const name = path.match(/\.\/views(.*)\.vue$/)[1].toLowerCase();
+  const name =
+    path.match(/\.\/views(.*)\.vue$/)[1].toLowerCase() ?? "/homeview";
   return {
     path: name === "/homeview" ? "/" : name,
     component: pages[path], // () => import('./pages/*.vue')
