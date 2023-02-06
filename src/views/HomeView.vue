@@ -29,12 +29,11 @@ const placesStore = usePlacesStore();
 const isModalVisible = ref(false);
 const selectedPlace = ref<TPlace | null>(null);
 const selectPlace = (place_id: number) => {
-  console.log(isModalVisible.value);
   selectedPlace.value = placesStore.places.filter(
     (place) => place.place_id === place_id
   )[0];
   isModalVisible.value = true;
-  console.log(isModalVisible.value);
+  console.log(selectedPlace.value);
 };
 </script>
 

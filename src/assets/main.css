@@ -1,1 +1,6 @@
 @import './reset.css';
+@import "@fontsource/roboto";
+
+body {
+    font-family: "Roboto";
+}
