@@ -1,13 +1,13 @@
 <template>
   <div class="home-page">
     <search-input />
-    <div class="home-content-container">
-      <ItemsListItem
+    <transition-group tag="ul" class="home-content-container" name="list">
+      <items-list-item
         v-for="place in placesStore.places"
         :key="place.place_id"
         :place="place"
       />
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -24,6 +24,22 @@ const placesStore = usePlacesStore();
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .list-move,
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 200ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(-20rem);
+  }
+
+  .list-leave-active {
+    position: absolute;
+  }
 
   .home-content-container {
     width: 100%;

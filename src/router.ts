@@ -18,7 +18,6 @@ const routes = Object.keys(pages).map((path) => {
     component: pages[path], // () => import('./pages/*.vue')
   };
 });
-console.log(routes);
 
 export function createRouter() {
   return _createRouter({

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-content-item">{{ place.display_name }}</div>
+  <li class="home-content-item">{{ place.display_name }}</li>
 </template>
 
 <script setup lang="ts">
