@@ -11,7 +11,6 @@ defineProps({ place: { type: Object as PropType<TPlace>, required: true } });
 
 <style lang="scss">
 .home-content-item {
-  cursor: pointer;
   display: block;
   width: 100%;
   padding: 12px;

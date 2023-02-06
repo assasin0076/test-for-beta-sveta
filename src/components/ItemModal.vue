@@ -2,7 +2,9 @@
   <teleport to="body">
     <div @click.self="close" class="item-modal-wrapper">
       <div class="item-modal-container">
-        <div class="item-label">{{ place.display_name }}</div>
+        <div class="item-label">
+          <img :src="place.icon" />{{ place.display_name }}
+        </div>
       </div>
     </div>
   </teleport>
@@ -39,10 +41,12 @@ const close = () => {
     min-height: 400px;
     background-color: white;
     border-radius: 8px;
+    padding: 24px;
 
     .item-label {
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 500;
+      text-align: center;
     }
   }
 }
