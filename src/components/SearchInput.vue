@@ -19,7 +19,6 @@ const route = useRoute();
 
 const searchInput = ref<HTMLInputElement | null>(null);
 const searchValue = ref<string>("");
-let timeout: ReturnType<typeof setTimeout>;
 
 onMounted(() => {
   if (searchInput.value) searchInput.value.focus();
@@ -31,10 +30,15 @@ onMounted(() => {
   getPlaces(searchValue.value);
 });
 
+let pause: boolean = false;
 const inputHandle = () => {
   router.push({ query: { search: searchValue.value } });
-  clearTimeout(timeout);
-  timeout = setTimeout(() => getPlaces(searchValue.value), 200);
+  if (pause) return;
+  pause = true;
+  setTimeout(async () => {
+    await getPlaces(searchValue.value);
+    pause = false;
+  }, 300);
 };
 </script>
 
