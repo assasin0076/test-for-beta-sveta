@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "node server",
     "build": "npm run build:client && npm run build:server",
-    "build:noExternal": "npm run build:client && npm run build:server:noExternal",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.js --outDir dist/server",
     "generate": "vite build --ssrManifest --outDir dist/static && npm run build:server && node prerender",

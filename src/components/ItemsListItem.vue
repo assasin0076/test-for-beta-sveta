@@ -14,6 +14,7 @@ defineProps({ place: { type: Object as PropType<TPlace>, required: true } });
   display: block;
   width: 100%;
   padding: 12px;
+  background-color: white;
   border: 1px solid black;
   border-radius: 4px;
 

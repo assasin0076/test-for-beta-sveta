@@ -28,13 +28,12 @@ const placesStore = usePlacesStore();
   .list-move,
   .list-enter-active,
   .list-leave-active {
-    transition: all 200ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 300ms;
   }
 
   .list-enter-from,
   .list-leave-to {
-    opacity: 0;
-    transform: translateX(-20rem);
+    transform: translateX(-100vw);
   }
 
   .list-leave-active {
