@@ -30,14 +30,12 @@ onMounted(() => {
   getPlaces(searchValue.value);
 });
 
-let pause: boolean = false;
+let timer: ReturnType<typeof setTimeout>;
 const inputHandle = () => {
   router.push({ query: { search: searchValue.value } });
-  if (pause) return;
-  pause = true;
-  setTimeout(async () => {
+  clearTimeout(timer);
+  timer = setTimeout(async () => {
     await getPlaces(searchValue.value);
-    pause = false;
   }, 300);
 };
 </script>
